@@ -1,0 +1,35 @@
+<div ng-controller = 'profiles_controller'>
+	<div class='header'>
+		<ul>
+			<li><a href='#/profile/{{user}}'>Bucket List</a></li>
+			<li><a href='#/dashboard/{{user}}'>Home</a></li>
+			<li><a href='#/'>Logout</a></li>
+		</ul>
+	</div>
+	<div>
+		<h1>{{user}}'s Bucket List</h1>
+	</div>
+	<div>
+		<h4>Done!</h4>
+		<ul>
+			<!-- <li ng-repeat='bucket in buckets' ng-if='bucket.complete == true && bucket.name == {{user}}'> -->
+			<li ng-repeat='bucket in buckets' ng-if="bucket.complete == true && bucket.created_by === user ">
+				{{bucket.created_by}} | {{bucket.title}} - {{bucket.description}}... - {{bucket.date | date:'medium'}}
+			</li>
+			<li ng-repeat='bucket in buckets' ng-if="bucket.complete == true && bucket.created_by !== user ">
+				{{bucket.created_by}} | {{bucket.title}} - {{bucket.description}}... - {{bucket.date | date:'medium'}}
+			</li>
+		</ul>
+	</div>
+	<div>
+		<h4>Pending...</h4>
+		<ul>
+			<li ng-repeat='bucket in buckets' ng-if="bucket.complete == false && bucket.created_by === user">
+				{{bucket.created_by}} | {{bucket.title}} - {{bucket.description}}... - {{bucket.date | date:'medium'}}
+			<li>
+			<li ng-repeat='bucket in buckets' ng-if="bucket.complete == false && bucket.created_by !== user">
+				{{bucket.created_by}} | {{bucket.title}} - {{bucket.description}}... - {{bucket.date | date:'medium'}}
+			<li>
+		</ul>
+	</div>
+</div>

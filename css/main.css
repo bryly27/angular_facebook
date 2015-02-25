@@ -1,0 +1,91 @@
+		body {
+			background-color: #EDF0F5;
+			padding: 0;
+			margin: 0;
+		}
+		.top_blue_bar {
+			background-color: #3A5795;
+			width: 100%;
+			height: 80px;
+			margin: 0;
+			color: white;
+		}
+		.top_blue_bar input {
+			padding: 0;
+		}
+		.top_blue_bar_submit {
+			background-color: #6079AB;
+			margin-top: 25px;
+			width: 50px;
+		}
+		.margin_top_50 {
+			margin-top: 50px;
+		}
+		.margin_top_25 {
+			margin-top: 25px;
+		}
+		.grey_font {
+			color: #666666;
+		}
+		.home_icons {
+			width: 80px;
+		}
+		.birthday {
+			padding: 0;
+		}
+		.birthday_first {
+			padding-left: 15px;
+		}
+		.home_page_agreement {
+			font-size: 10px;
+		}
+		.home_page_register {
+			background-color: #649C50;
+		}
+
+		.top_bar {
+			width: 100%;
+			height: 45px;
+			margin: 0;
+			padding: 7px;
+			background-color: #3A5795;
+			color: white;
+		}
+		#search{
+			width: 500px !important;
+		}
+		.top_bar_li li {
+			list-style-type: none;
+			display: inline-block;
+		}
+		.glyphs {
+			color: #23355B;
+			font-size: 20px;
+		}
+		.dropdownMenu1 {
+			background-color: blue;
+		}
+
+
+		.profile_bar li {
+			list-style-type: none;
+		}
+		.user_glyph {
+			font-size: 30px;
+			color: white;
+			background-color: #D0D3D8;
+			border: 1px solid silver;
+			padding: 2px;
+		}
+		.profile_bar_edit {
+			padding-left: 0;
+			margin-top: 5px;
+			font-size: 12px;
+			line-height: 50%;
+		}
+
+
+
+
+
+	

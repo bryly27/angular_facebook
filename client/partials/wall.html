@@ -1,0 +1,134 @@
+<div ng-controller='users_controller'>
+
+	<div class='row top_bar'>
+		<div class='col-md-1'>
+		</div>
+		<div class="col-lg-6 form-inline">
+			<img src='static/icons/facebook_logo.png'>
+	    <div class="input-group">
+	    	<form>
+		      <input id='search' type="text" class="form-control" ng-model='filter_name' placeholder="Search for...">
+		      <span class="input-group-btn">
+		        <input type='submit' class="btn btn-default" type="button" value='Search'>
+		      </span>
+		    </form>
+	    </div>
+
+	    <div class='search_filter' ng-show='filter_name.length' >
+	    	<p ng-repeat='friend in search_friends | filter:filter_name' ><a href='#/profile/{{friend.username}}' ng-click='get_profile()'>{{friend.first_name}} {{friend.last_name}}</a></p>
+	    </div>
+
+	  </div>
+	  <div class='col-md-5 top_bar_li'>
+	  	<ul>
+	  		<li class='visited_white'><a href='#/profile/{{logged_user[0].username}}' ng-click='get_profile()'>{{logged_user[0].first_name}}</a></li>
+	  		<li class='visited_white'><a href='#/home'>Home</a></li>
+	  		<li>
+	  			<span class="glyphicon glyphicon-user glyphs" aria-hidden="true"></span>
+	  			<span class="glyphicon glyphicon-comment glyphs" aria-hidden="true"></span>
+	  			<span class="glyphicon glyphicon-globe glyphs" aria-hidden="true"></span>
+	  		</li>
+	  		<li>
+	  			<div class="dropdown">
+	  			  <a class=" dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+	  			    <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+	  			  </a>
+	  			  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+	  			    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
+	  			    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
+	  			    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
+	  			    <li role="presentation"><a role="menuitem" tabindex="-1" href="#/" ng-click='logoff()'>Log Off</a></li>
+	  			  </ul>
+	  			</div>
+	  		</li>
+	  	</ul>
+	  </div>
+	</div>
+
+	<div class='container'>
+		<div class='row'>
+			<div class='col-md-10'>
+				<div class='wall_background_photo'>
+					<div class='wall_profile_photo'>
+					</div>
+					<h3>{{profile.first_name}} {{profile.last_name}}</h3>
+				</div>
+			</div>
+		</div>
+		<div class='row'>
+			<div class='container'>
+				<div class='col-md-3'>
+				</div>
+				<div class='profile_menu_buttons col-md-7'>
+					<ul>
+						<li><a href='#'>Timeline</a></li>
+						<li><a href='#'>About</a></li>
+						<li><a href='#'>Friends</a></li>
+						<li><a href='#'>Photos</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class='container'>
+		<div class='row'>
+			<div class='col-md-3 wall_left_bar'>
+			</div>
+			<div class='col-md-6 wall_posts'>
+				<div class='wall_message_box'>
+					<form>
+						<textarea ng-model='new_message.message' placeholder="What's on your mind?"></textarea>
+						<input type='submit' value='submit' class='pull-right' ng-click='new_wall_message(new_message, profile._id)'>
+					</form>
+				</div>
+
+
+				<div ng-repeat="messages in profile.wall_messages | orderBy:'created_at':true">
+					<div class='wall_messages margin_top_50'>
+						<div class='row'>
+							<div class='col-md-3 wall_message_photo'>
+							</div>
+							<div class='col-md-8 wall_message_top_info'>
+								<div class='row'>
+									<h5><a href='#/profile/{{messages.created_by_username}}'>{{messages.created_by_fullname}}</a> <span class="glyphicon glyphicon-play" aria-hidden="true"></span> <a href='#/profile/{{profile.username}}'>{{profile.first_name}} {{profile.last_name}}</a></h5>
+								</div>
+								<div class='row'>
+									<p>{{messages.created_at | date:'medium'}}</p>
+								</div>
+							</div>
+						</div>
+						<div class='row wall_message_message'>
+							<p>{{messages.message}}</p>
+						</div>
+					</div>
+					<div class='wall_comment_textarea'>
+						<div class='container'>
+							<div class='row' ng-repeat='comment in messages.comments'>
+								<div class='col-md-2 user_comment_photo'></div>
+								<div class='col-md-8 wall_comment_top_info'>
+									<div class='row'>
+										<h5><span class='comment_created_by'><a href='#/profile/{{comment.created_by_username}}'>{{comment.created_by_fullname}}</a></span> {{comment.comment}}</h5>
+									</div>
+									<div class='row'>
+										<p>{{comment.created_at | date:'medium'}}</p>
+									</div>
+								</div>
+							</div>
+							<div class='row margin_top_10'>
+								<div class='col-md-2 user_comment_photo'></div>
+								<div class='col-md-10 user_comment_input'>
+									<form ng-submit='new_wall_comment(new_comment, messages._id)'>
+										<input type='text' ng-model='new_comment.comment' placeholder='Write a comment...'>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	
+</div>

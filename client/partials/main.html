@@ -1,0 +1,124 @@
+<div ng-controller='users_controller'>
+	<div class='row top_blue_bar'>
+		<div class='col-md-3 col-md-offset-1'>
+			<h1>facebook</h1>
+		</div>
+		<form name='form'>
+			<div class='col-md-2 col-md-offset-2'>
+				<p>Email or Phone</p>
+				<input type='text'  ng-minlength='2' ng-model='get_user.email' required>
+			</div>
+			<div class='col-md-2'>
+				<p>Password</p>
+				<input type='password' ng-minlength='2' ng-model='get_user.password' required>
+			</div>
+			<div class='col-md-1'>
+				<input class='top_blue_bar_submit' type='submit' ng-click='login_user(get_user)' value='Log In'>
+			</div>
+		</form>
+	</div>
+
+	<div class='container'>
+		<!-- ======================left_body========================= -->
+		<div class='row home_page_body margin_top_25'>
+			<div class='col-md-6 margin_top_50'>
+				<h2>Connect with friends and the world around you on Facebook.</h2>
+				<h5 class='margin_top_50'><label class='home_icons'><img src='static/icons/facebook_home_icon1.png'></label><strong>See photos and updates from</strong> <span class='grey_font'>friends in News Feed.</span></h5>
+				<h5><label class='home_icons'><img src='/static/icons/facebook_home_icon2.png'></label><strong>Share what's new</strong> <span class='grey_font'>in your life on your Timeline.</span></h5>
+				<h5><label class='home_icons'><img src='/static/icons/facebook_home_icon3.png'></label><strong>Fine more</strong> <span class='grey_font'>of what you're looking for with Graph Search.</span></h5>
+			</div>
+		<!-- ============================right_body_form============================== -->
+			<div class='col-md-6'>
+				<div ng-show='result.result'>
+					{{result.result}}
+				</div>
+				<h1>Sign Up</h1>
+				<h4>It's free and always will be.</h4>
+				<form name='form'>
+					<div class='row margin_top_25'>
+						<div class="col-md-4">
+							<div class="form-group">
+		            <input type="text" name="first_name" id="first_name" class="form-control input-sm" placeholder="First Name" ng-model='new_user.first_name' ng-minlength='2' required>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+		            <input type="text" name="last_name" id="last_name" class="form-control input-sm" placeholder="Last Name" ng-model='new_user.last_name' ng-minlength='2' required>
+							</div>
+						</div>
+					</div>
+					<div class='row'>
+						<div class='col-md-8'>
+							<div class='form-group'>
+								<input type="email" name="email" id="email" class="form-control input-sm" placeholder="Email or Mobile number" ng-model='new_user.email' ng-minlength='2' required>
+							</div>
+						</div>
+					</div>
+					<div class='row'>
+						<div class='col-md-8'>
+							<div class='form-group'>
+								<input type="email" name="email_confirmation" id="email_confirmation" class="form-control input-sm" placeholder="Re-enter Email or Mobile number" ng-model='new_user.confirm_email' required>
+							</div>
+						</div>
+					</div>
+					<div class='row'>
+						<div class='col-md-8'>
+							<div class='form-group'>
+								<input type="text" name="password" id="password" class="form-control input-sm" placeholder="New password" ng-model='new_user.password' ng-minlength='2' required>
+							</div>
+						</div>
+					</div>
+					<div class='row'>
+						<div class='col-md-8'>
+							<div class='form-group'>
+								<input type="text" name="username" id="username" class="form-control input-sm" placeholder="Username" ng-model='new_user.username' ng-minlength='4' required>
+							</div>
+						</div>
+					</div>
+					<div class='row'>
+						<div class='col-md-8'>
+							<h4>Birthday</h4>
+						</div>
+					</div>
+					<div class='row'>
+						<div class='col-md-2 birthday birthday_first'>
+							<select class='form-control' ng-model='new_user.month' required>
+								<option>Month</option>
+								<option ng-repeat='month in months' value="{{month}}">{{month}}</option>
+							</select>
+						</div>
+						<div class='col-md-2 birthday'>
+							<select class='form-control' ng-model='new_user.day' required>
+								<option>Day</option>
+								<option ng-repeat='day in days' value='{{day}}'>{{day}}</option>
+							</select>
+						</div>
+						<div class='col-md-2 birthday'>
+							<select class='form-control' ng-model='new_user.year' required>
+								<option>Year</option>
+								<option ng-repeat='year in years' value='{{year}}'>{{year}}</option>
+							</select>
+						</div>
+					</div>
+					<div class='row'>
+						<div class='col-md-8'>
+							<h4><input type='radio' name='gender' ng-model='new_user.gender' value='female'> Female <input type='radio' name='gender' ng-model='new_user.gender' value='male'> Male</h4>
+						</div>
+					</div>
+					<div class='row'>
+						<div class='col-md-6'>
+							<p class='home_page_agreement'>By clicking Sign Up, you agree to our Terms and that you have read our Data Policy, including our Cookie Use</p>
+						</div>
+					</div>
+					<div class='row'>
+						<div class='col-md-5'>
+							<input type="submit" class="btn btn-info btn-block btn-custom home_page_register" value="Sign Up" ng-click='add_user(new_user)'>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+
