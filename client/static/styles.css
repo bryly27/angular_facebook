@@ -57,6 +57,9 @@ body {
 	position: fixed;
 	z-index: 3;
 }
+.top_bar img {
+	margin-bottom: 10px;
+}
 #search{
 	width: 500px !important;
 }
@@ -106,6 +109,18 @@ body {
 	background-color: white;
 	display: inline-block;
 }
+.profile_pic {
+	width: 150px;
+	height: 150px;
+	margin-top: 80px;
+	margin-left: 30px;
+	background-color: white;
+	display: inline-block;
+}
+.profile_pic img {
+	width: 150px;
+	height: 150px;
+}
 .wall_background_photo h3 {
 	display: inline-block;
 	vertical-align: top;
@@ -117,9 +132,6 @@ body {
 }
 .profile_menu_buttons ul {
 	border-bottom: 1px solid silver;
-}
-.wall_left_bar {
-	border: 1px solid black;
 }
 .wall_posts {
 /*		border: 1px solid black;*/
@@ -135,10 +147,6 @@ body {
 	width: 100%;
 	resize: none;
 }
-.home_updates {
-	border: 1px solid silver;
-	height: 100%;
-}
 
 .search_filter {
 	width: 85%;
@@ -149,6 +157,18 @@ body {
 	background-color: white;
 	color: black;
 }
+.search_filter img {
+	height: 30px;
+	width: 30px;
+}
+.search_filter p:first-child{
+	margin-top: 10px;
+}
+.search_filter p {
+	line-height: 50%;
+	margin: 0;
+}
+
 .wall_messages {
 	border: 1px solid silver;
 	padding: 10px;
@@ -161,6 +181,18 @@ body {
 	margin-top: 5px;
 	margin-left: 20px;
 }
+.wall_message_profile_pic {
+	height: 40px;
+	width: 40px;
+	margin-top: 5px;
+	margin-left: 0px;
+	margin-right: 20px;
+}
+.wall_message_profile_pic img {
+	height: 40px;
+	width: 40px;
+}
+
 .wall_message_top_info {
 	margin-left: 10px;
 	line-height: 50%;
@@ -192,6 +224,16 @@ body {
 	border: 1px solid black;
 	padding: 10px;
 }
+.user_comment_profile_pic {
+	width: 30px;
+	height: 30px;
+	padding: 0;
+}
+.user_comment_profile_pic img {
+	width: 30px;
+	height: 30px;
+}
+
 .user_comment_input input  {
 	width: 50%;
 }
@@ -208,7 +250,29 @@ body {
 	margin-top: 0px;
 }
 .wall_comment_top_info p {
-	font-size: 10px;
+	font-size: 12px;
+}
+.home_profile_pic {
+	height: 40px;
+	width: 40px;
+}
+
+.news_feed {
+	border: 1px solid silver;
+	height: 100%;
+}
+.news_feed_box {
+	margin: 10px 5px 10px 5px;
+	background-color: white;
+}
+.edit_user {
+	border: 1px solid silver;
+}
+.edit_user_header {
+	border-bottom: 1px solid silver;
+}
+.edit_user_content {
+	border-left: 1px solid silver;
 }
 
 

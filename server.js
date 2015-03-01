@@ -8,6 +8,8 @@ var http = require('http');
 var path = require('path');
 var crypto = require('crypto');
 var multer = require('multer');
+// var AWS = require('aws-sdk');
+// AWS.config.region = 'us-west-1';
 
 
 // create the express app
@@ -25,6 +27,8 @@ app.use(methodOverride('X-HTTP-Method-Override'));
 
 // sets up a static file server that points to the client directory
 app.use(express.static(path.join(__dirname, 'client')));
+
+app.use(multer({ dest: './client/static/images'}));
 
 app.set('views', path.join(__dirname, './client/views'));
 app.set('static', path.join(__dirname, './client/static'));

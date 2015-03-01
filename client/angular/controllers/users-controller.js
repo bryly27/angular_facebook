@@ -1,9 +1,9 @@
 // create the controller and we're telling it that we are going to use $scope and we are going to use a FriendFactory and that it belongs to the fullMeanDemo app
-facebook.controller('users_controller', function($window, $scope, $rootScope, $location, $routeParams, users_factory, localStorageService) {
+facebook.controller('users_controller', function($window, $route, $scope, $rootScope, $location, $routeParams, users_factory, localStorageService) {
 
 	$scope.logged_user = localStorageService.get('user');
-	search_friends();
 	get_profile();
+	get_news_feed();
 
 	$scope.months = [];
 	for(var i=1;i<13;i++){
@@ -37,13 +37,14 @@ facebook.controller('users_controller', function($window, $scope, $rootScope, $l
 				$scope.result = data;
 			}else{
 				$location.path('/home');
-				localStorageService.set('user', data);
-			}
+				localStorageService.set('user', data[0]);
+			};
 		});
 	};
 
-	function search_friends(){
+	$scope.search_friends = function(){
 		users_factory.search_friends(function(data){
+			console.log(data);
 			$scope.search_friends = data;
 		});
 	};
@@ -51,15 +52,17 @@ facebook.controller('users_controller', function($window, $scope, $rootScope, $l
 	function get_profile(){
 		users_factory.get_profile($routeParams.id, function(data){
 			$scope.profile = data;
-			console.log(data);
 		});
 	};
 
 	$scope.new_wall_message = function(data, data2){
 		data.created_at = new Date();
-		data.created_by_username = localStorageService.get('user')[0].username;
-		data.created_by_fullname = localStorageService.get('user')[0].first_name + ' ' + localStorageService.get('user')[0].last_name;
-		data.created_for = data2;
+		data.created_by_username = localStorageService.get('user').username;
+		data.created_by_fullname = localStorageService.get('user').first_name + ' ' + localStorageService.get('user').last_name;
+		data.created_by_profile_pic = localStorageService.get('user').profile_pic;
+		data.created_for = data2._id;
+		data.created_for_fullname = data2.first_name + ' ' + data2.last_name;
+		data.created_for_username = data2.username
 		users_factory.new_wall_message(data, function(data){
 			$scope.new_message = null;
 			get_profile();
@@ -68,8 +71,9 @@ facebook.controller('users_controller', function($window, $scope, $rootScope, $l
 
 	$scope.new_wall_comment = function(data, data2){
 		data.created_at = new Date();
-		data.created_by_username = localStorageService.get('user')[0].username;
-		data.created_by_fullname = localStorageService.get('user')[0].first_name + ' ' + localStorageService.get('user')[0].last_name;
+		data.created_by_username = localStorageService.get('user').username;
+		data.created_by_fullname = localStorageService.get('user').first_name + ' ' + localStorageService.get('user').last_name;
+		data.created_by_profile_pic = localStorageService.get('user').profile_pic;
 		data.comment_for = data2;
 		users_factory.new_wall_comment(data, function(data){
 			console.log('made it back');
@@ -78,47 +82,40 @@ facebook.controller('users_controller', function($window, $scope, $rootScope, $l
 		});
 	};
 
-	// $scope.add_bucket = function(data){
-	// 	data.date = new Date();
-	// 	data.created_by = $routeParams.id;
-	// 	data.complete = false;
-	// 	users_factory.add_bucket(data, function(){
-	// 		update_buckets($routeParams.id);
-	// 		$scope.new_bucket = {};
-	// 	});
-	// };
+	$scope.edit_profile_photo = function(data){
+		data.id = localStorageService.get('user')._id;
+		console.log(data);
+		users_factory.profile_pic(data, function(data){
+    	localStorageService.set('user', data);
+    	$route.reload();
+    });
+	};
 
-	// function update_buckets(data){
-	// 	users_factory.update_buckets(data, function(output){
-	// 		$scope.buckets = output;
-	// 		console.log(output);
-	// 	});
-	// };
+	function get_news_feed(){
+		users_factory.get_news_feed(function(data){
+			$scope.news_feeds = data;
+		});
+	};
+
+	$scope.edit_profile_email = function(data){
+		data.id = localStorageService.get('user')._id;
+		users_factory.edit_profile_email(data, function(data){
+			localStorageService.set('user', data);
+			$route.reload();
+		});
+	};
+
+	$scope.edit_profile_username = function(data){
+		data.id = localStorageService.get('user')._id;
+		users_factory.edit_profile_username(data, function(data){
+			localStorageService.set('user', data);
+			$route.reload();
+		})
+	}
+
+
+
 })
 
-// facebook.controller('wall_controller', function($scope, $rootScope, $location, $routeParams, users_factory, localStorageService) {
 
-// 	$scope.user = $routeParams.id;
-
-// 	users_factory.get_info($routeParams.id, function(output){
-// 		$scope.buckets = output;
-// 		console.log(output);
-// 	});
-
-// 	$scope.update_complete = function(data){
-// 		console.log(data);
-// 		data.complete = true;
-// 		users_factory.update_complete(data, function(output){
-// 		});
-// 	};
-
-// 	$scope.update_incomplete = function(data){
-// 		console.log(data);
-// 		data.complete = false;
-// 		users_factory.update_complete(data, function(output){
-// 		});
-// 	};
-
-		
-// })
 

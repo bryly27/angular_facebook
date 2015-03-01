@@ -5,6 +5,11 @@ var User = mongoose.model('user');
 var Wall_message = mongoose.model('wall_message');
 var Wall_comment = mongoose.model('wall_comment');
 var crypto = require('crypto');
+var path = require('path');
+// var AWS = require('aws-sdk');
+// AWS.config.region = 'us-west-1';
+// AWS_ACCESS_KEY_ID='AKIAILCEL2NUQCLWXWCA';
+// AWS_SECRET_ACCESS_KEY='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';
 // var Facebook = mongoose.model('facebook');
 module.exports = (function() {
 	// return because we want to put an object into the variable for whatever requires this
@@ -91,42 +96,59 @@ module.exports = (function() {
 			});
 		},
 
-		// new_wall_comment: function(req, res){
-		// 	Wall_message.findOne({_id: req.body.comment_for}, function(err, result){
-		// 		var wall_comment = new Wall_comment(req.body);
-		// 		result.wall_comments.push(wall_comment);
-		// 		wall_comment.save(function(err){
-		// 			result.save(function(err){
-		// 				if(err){
-		// 					console.log('error', err);
-		// 				}else{
-		// 					res.end();
-		// 				}
-		// 			});
-		// 		});
-		// 	});
-		// },
+		add_photo: function(req, res){
+			console.log('djkflsd', req.files);
+			console.log(req.files.pic.path);
+			User.findOne({_id: req.body.id}, function(err, result){
+				result.profile_pic = req.files.pic.name;
+				result.save(function(err, results){
+					if(err){
+						console.log('error', err);
+					}else{
+						console.log('result', result);
+						res.json(result);
+					}
+				})
+			})
+		},
 
-		// get_users: function(req, res){
-		// 	User.find({}, function(err, results){
-		// 		if(err){
-		// 			consol.log(err);
-		// 		}else{
-		// 			res.send(JSON.stringify(results));
-		// 		}
-		// 	})
-		// },
+		get_news_feed: function(req, res){
+			Wall_message.find({}, function(err, result){
+				if(err){
+					console.log('err', err);
+				}else{
+					res.json(result);
+				}
+			})
+		},
 
-		// add_bucket: function(req, res){
-		// 	var new_bucket = new Bucket(req.body);
-		// 	new_bucket.save(function(err){
-		// 		if(err) {
-		// 			console.log("err");
-		// 		} else {
-		// 			res.json({result: "success!"});
-		// 		}
-		// 	})
-		// },
+		edit_profile_email: function(req, res){
+			User.findOne({_id: req.body.id}, function(err, result){
+				result.email = req.body.email;
+				result.save(function(err, results){
+					if(err){
+						console.log(err);
+					}else{
+						console.log(results);
+						res.json(results);
+					}
+				})
+			})
+		},
+
+		edit_profile_username: function(req, res){
+			User.findOne({_id: req.body.id}, function(err, result){
+				result.username = req.body.username;
+				result.save(function(err, results){
+					if(err){
+						console.log('err', err);
+					}else{
+						console.log(results);
+						res.json(results);
+					}
+				})
+			})
+		},
 
 		// get_buckets: function(req, res){
 		// 	Bucket.find({created_by: req.params.id}, function(err, results){

@@ -41,6 +41,45 @@ facebook.factory('users_factory', function($http) {
 		});
 	};
 
+	factory.new_profile_picture = function(info){
+		console.log(info);
+		$http.post('/users/new_profile_picture', info).success(function(){
+		});
+	};
+
+	factory.profile_pic = function(form, callback){
+		console.log(form);
+		fd = new FormData();
+		_.each(form, function(value, key, form){
+			fd.append(key, value);
+		})
+
+		$http.post('/users/add_photo', fd, {
+			transformRequest: angular.identity,
+			headers:{'Content-Type': undefined}
+			}).success(function(data){
+				callback(data);
+		})
+	}
+
+	factory.get_news_feed = function(callback){
+		$http.post('/users/get_news_feed').success(function(data){
+			callback(data);
+		});
+	}
+
+	factory.edit_profile_email = function(info, callback){
+		$http.post('/users/edit_profile_email', info).success(function(data){
+			callback(data);
+		});
+	};
+
+	factory.edit_profile_username = function(info, callback){
+		$http.post('/users/edit_profile_username', info).success(function(data){
+			callback(data);
+		})
+	}
+
 	// factory.add_bucket = function(info, callback){
 	// 	$http.post('/users/add_bucket', info).success(function(){
 	// 		callback();
@@ -53,18 +92,7 @@ facebook.factory('users_factory', function($http) {
 	// 	});
 	// };
 
-	// factory.get_info = function(data, callback){
-	// 	$http.post('/buckets/info/' + data).success(function(output){
-	// 		callback(output);
-	// 	});
-	// };
-
-	// factory.update_complete = function(data, callback){
-	// 	console.log('factory', data);
-	// 	$http.post('/buckets/update_complete', data).success(function(){
-	// 		callback();
-	// 	});
-	// };
+	
 
 	return factory;
 })

@@ -1,0 +1,101 @@
+<div ng-controller='users_controller'>
+
+	<div class='row top_bar'>
+		<div class='col-md-1'>
+		</div>
+		<div class="col-lg-6 form-inline">
+			<img src='static/icons/facebook_logo.png'>
+	    <div class="input-group">
+	    	<form>
+		      <input id='search' type="text" class="form-control" ng-model='filter_name' placeholder="Search for..." ng-click='search_friends()'>
+		      <span class="input-group-btn">
+		        <input type='submit' class="btn btn-default" type="button" value='Search'>
+		      </span>
+		    </form>
+	    </div>
+
+	    <div class='search_filter container' ng-show='filter_name.length'>
+	    	<p ng-repeat='friend in search_friends | filter:filter_name' ><a href='#/profile/{{friend.username}}'><img src='/static/images/{{friend.profile_pic}}'> {{friend.first_name}} {{friend.last_name}}</a></p>
+	    </div>
+
+	  </div>
+	  <div class='col-md-5 top_bar_li'>
+	  	<ul>
+	  		<li class='visited_white'><a href='#/profile/{{logged_user.username}}' ng-click='get_profile()'>{{logged_user.first_name}}</a></li>
+	  		<li class='visited_white'><a href='#/home'>Home</a></li>
+	  		<li>
+	  			<span class="glyphicon glyphicon-user glyphs" aria-hidden="true"></span>
+	  			<span class="glyphicon glyphicon-comment glyphs" aria-hidden="true"></span>
+	  			<span class="glyphicon glyphicon-globe glyphs" aria-hidden="true"></span>
+	  		</li>
+	  		<li>
+	  			<div class="dropdown">
+	  			  <a class=" dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+	  			    <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+	  			  </a>
+	  			  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+	  			    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
+	  			    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
+	  			    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
+	  			    <li role="presentation"><a role="menuitem" tabindex="-1" href="#/" ng-click='logoff()'>Log Off</a></li>
+	  			  </ul>
+	  			</div>
+	  		</li>
+	  	</ul>
+	  </div>
+	</div>
+
+	<div class='container'>
+		<div class='row'>
+			<div class='col-md-10'>
+				<div class='wall_background_photo'>
+					<div class='profile_pic' ng-show='logged_user.profile_pic'>
+						<img src='/static/images/{{profile.profile_pic}}'>
+					</div>
+					<div class='wall_profile_photo' ng-show='!logged_user.profile_pic'>
+					</div>
+					<h3>{{profile.first_name}} {{profile.last_name}}</h3>
+				</div>
+			</div>
+		</div>
+		<div class='row'>
+			<div class='container'>
+				<div class='col-md-3'>
+				</div>
+				<div class='profile_menu_buttons col-md-7'>
+					<ul>
+						<li><a href='#'>Timeline</a></li>
+						<li><a href='#/profile/about/{{profile.username}}'>About</a></li>
+						<li><a href='#'>Friends</a></li>
+						<li><a href='#'>Photos</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class='container'>
+		<div class='col-md-10 edit_user'>
+			<div class='edit_user_header'>
+				<h3>Profile Information</h3>
+			</div>
+		
+			<div class='col-md-3 edit_user_left_side_bar'>
+				<div class='row'>
+					<h4><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>About</h4>
+				</div>
+			</div>
+			<div class='col-md-9 edit_user_content'>
+				<div class='row margin_top_25 container'>
+					<h4>Name: {{profile.first_name}} {{profile.last_name}}</h4>
+					<h4>Email: {{profile.email}} </h4>
+					<h4>Birthday: {{profile.birthday | date: longdate}}</h4>
+					<h4>Username: {{profile.username}}</h4>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	
+</div>

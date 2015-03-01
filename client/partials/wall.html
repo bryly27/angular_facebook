@@ -7,21 +7,21 @@
 			<img src='static/icons/facebook_logo.png'>
 	    <div class="input-group">
 	    	<form>
-		      <input id='search' type="text" class="form-control" ng-model='filter_name' placeholder="Search for...">
+		      <input id='search' type="text" class="form-control" ng-model='filter_name' placeholder="Search for..." ng-click='search_friends()'>
 		      <span class="input-group-btn">
 		        <input type='submit' class="btn btn-default" type="button" value='Search'>
 		      </span>
 		    </form>
 	    </div>
 
-	    <div class='search_filter' ng-show='filter_name.length' >
-	    	<p ng-repeat='friend in search_friends | filter:filter_name' ><a href='#/profile/{{friend.username}}' ng-click='get_profile()'>{{friend.first_name}} {{friend.last_name}}</a></p>
+	    <div class='search_filter container' ng-show='filter_name.length'>
+	    	<p ng-repeat='friend in search_friends | filter:filter_name' ><a href='#/profile/{{friend.username}}'><img src='/static/images/{{friend.profile_pic}}'> {{friend.first_name}} {{friend.last_name}}</a></p>
 	    </div>
 
 	  </div>
 	  <div class='col-md-5 top_bar_li'>
 	  	<ul>
-	  		<li class='visited_white'><a href='#/profile/{{logged_user[0].username}}' ng-click='get_profile()'>{{logged_user[0].first_name}}</a></li>
+	  		<li class='visited_white'><a href='#/profile/{{logged_user.username}}' ng-click='get_profile()'>{{logged_user.first_name}}</a></li>
 	  		<li class='visited_white'><a href='#/home'>Home</a></li>
 	  		<li>
 	  			<span class="glyphicon glyphicon-user glyphs" aria-hidden="true"></span>
@@ -49,7 +49,10 @@
 		<div class='row'>
 			<div class='col-md-10'>
 				<div class='wall_background_photo'>
-					<div class='wall_profile_photo'>
+					<div class='profile_pic' ng-show='profile.profile_pic'>
+						<img src='/static/images/{{profile.profile_pic}}'>
+					</div>
+					<div class='wall_profile_photo' ng-show='!profile.profile_pic'>
 					</div>
 					<h3>{{profile.first_name}} {{profile.last_name}}</h3>
 				</div>
@@ -62,7 +65,7 @@
 				<div class='profile_menu_buttons col-md-7'>
 					<ul>
 						<li><a href='#'>Timeline</a></li>
-						<li><a href='#'>About</a></li>
+						<li><a href='#/profile/about/{{profile.username}}'>About</a></li>
 						<li><a href='#'>Friends</a></li>
 						<li><a href='#'>Photos</a></li>
 					</ul>
@@ -79,7 +82,7 @@
 				<div class='wall_message_box'>
 					<form>
 						<textarea ng-model='new_message.message' placeholder="What's on your mind?"></textarea>
-						<input type='submit' value='submit' class='pull-right' ng-click='new_wall_message(new_message, profile._id)'>
+						<input type='submit' value='submit' class='pull-right' ng-click='new_wall_message(new_message, profile)'>
 					</form>
 				</div>
 
@@ -87,7 +90,10 @@
 				<div ng-repeat="messages in profile.wall_messages | orderBy:'created_at':true">
 					<div class='wall_messages margin_top_50'>
 						<div class='row'>
-							<div class='col-md-3 wall_message_photo'>
+							<div class='col-md-3 wall_message_profile_pic' ng-show='messages.created_by_profile_pic'>
+								<img src='/static/images/{{messages.created_by_profile_pic}}'>
+							</div>
+							<div class='col-md-3 wall_message_photo' ng-show='!messages.created_by_profile_pic'>
 							</div>
 							<div class='col-md-8 wall_message_top_info'>
 								<div class='row'>
@@ -105,10 +111,14 @@
 					<div class='wall_comment_textarea'>
 						<div class='container'>
 							<div class='row' ng-repeat='comment in messages.comments'>
-								<div class='col-md-2 user_comment_photo'></div>
+								<div class='col-md-2 user_comment_profile_pic' ng-show='comment.created_by_profile_pic'>
+									<img src='/static/images/{{comment.created_by_profile_pic}}'>
+								</div>
+								<div class='col-md-2 user_comment_photo' ng-show='!comment.created_by_profile_pic'>
+								</div>
 								<div class='col-md-8 wall_comment_top_info'>
 									<div class='row'>
-										<h5><span class='comment_created_by'><a href='#/profile/{{comment.created_by_username}}'>{{comment.created_by_fullname}}</a></span> {{comment.comment}}</h5>
+										<p><span class='comment_created_by'><a href='#/profile/{{comment.created_by_username}}'>{{comment.created_by_fullname}}</a></span> {{comment.comment}}</p>
 									</div>
 									<div class='row'>
 										<p>{{comment.created_at | date:'medium'}}</p>
@@ -116,7 +126,11 @@
 								</div>
 							</div>
 							<div class='row margin_top_10'>
-								<div class='col-md-2 user_comment_photo'></div>
+								<div class='col-md-2 user_comment_profile_pic' ng-show='logged_user.profile_pic'>
+									<img src='/static/images/{{logged_user.profile_pic}}'>
+								</div>
+								<div class='col-md-2 user_comment_photo' ng-show='!logged_user.profile_pic'>
+								</div>
 								<div class='col-md-10 user_comment_input'>
 									<form ng-submit='new_wall_comment(new_comment, messages._id)'>
 										<input type='text' ng-model='new_comment.comment' placeholder='Write a comment...'>
@@ -126,6 +140,8 @@
 						</div>
 					</div>
 				</div>
+
+
 			</div>
 		</div>
 	</div>

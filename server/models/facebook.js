@@ -15,13 +15,17 @@ var UsersSchema = new mongoose.Schema({
 	created_at: {type: Date, default: new Date},
 	updated_at: Date,
 	wall_messages: [{type: Schema.Types.ObjectId, ref: 'wall_message'}],
+	profile_pic: String,
 });
 
 var Wall_messageSchema = new mongoose.Schema({
 	message: String,
 	created_by_username: String,
 	created_by_fullname: String,
+	created_by_profile_pic: String, 
 	created_for: {type: Schema.ObjectId, ref: 'user'},
+	created_for_fullname: String, 
+	created_for_username: String, 
 	created_at: Date, 
 	updated_at: Date,
 	comments: Array,

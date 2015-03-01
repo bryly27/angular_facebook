@@ -9,8 +9,17 @@ facebook.config(function($routeProvider){
 		.when('/home',{
 			templateUrl: 'partials/home.html',
 		})
+		.when('/profile/edit/photo',{
+			templateUrl: 'partials/edit_profile_photo.html',
+		})
+		.when('/profile/edit',{
+			templateUrl: 'partials/edit_profile.html',
+		})
 		.when('/profile/:id',{
 			templateUrl: 'partials/wall.html',
+		})
+		.when('/profile/about/:id',{
+			templateUrl: 'partials/about.html',
 		})
 		.when('/search',{
 			templateUrl: 'partials/find_friends.html',
