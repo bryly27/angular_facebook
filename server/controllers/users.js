@@ -6,10 +6,6 @@ var Wall_message = mongoose.model('wall_message');
 var Wall_comment = mongoose.model('wall_comment');
 var crypto = require('crypto');
 var path = require('path');
-// var AWS = require('aws-sdk');
-// AWS.config.region = 'us-west-1';
-// AWS_ACCESS_KEY_ID='AKIAILCEL2NUQCLWXWCA';
-// AWS_SECRET_ACCESS_KEY='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';
 // var Facebook = mongoose.model('facebook');
 module.exports = (function() {
 	// return because we want to put an object into the variable for whatever requires this
