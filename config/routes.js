@@ -46,7 +46,11 @@ module.exports = function(app) {
 
 	app.post('/users/edit_profile_username', function(req, res){
 		users.edit_profile_username(req, res);
-	})
+	});
+
+	app.post('/users/add_friend', function(req, res){
+		users.add_friend(req, res);
+	});
 
 	// app.post('/pictures/create', function(req, res){ 
 	// 	users.create_picture(req, res); 

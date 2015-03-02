@@ -34,10 +34,7 @@
 	  			    <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
 	  			  </a>
 	  			  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-	  			    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
-	  			    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
-	  			    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
-	  			    <li role="presentation"><a role="menuitem" tabindex="-1" href="#/" ng-click='logoff()'>Log Off</a></li>
+	  			    <li role="presentation"><a role="menuitem" tabindex="-1" href="#/" ng-click='logoff()'>Log Off ({{logged_user.first_name}} {{logged_user.last_name}})</a></li>
 	  			  </ul>
 	  			</div>
 	  		</li>
@@ -54,7 +51,9 @@
 					</div>
 					<div class='wall_profile_photo' ng-show='!profile.profile_pic'>
 					</div>
-					<h3>{{profile.first_name}} {{profile.last_name}}</h3>
+					<h3>{{profile.first_name}} {{profile.last_name}} 
+						<a ng-if='profile.username !== logged_user.username' class='add_friend_button btn' href="" ng-click='add_friend(profile)'>Add Friend</a>
+					</h3>
 				</div>
 			</div>
 		</div>
@@ -66,7 +65,7 @@
 					<ul>
 						<li><a href='#'>Timeline</a></li>
 						<li><a href='#/profile/about/{{profile.username}}'>About</a></li>
-						<li><a href='#'>Friends</a></li>
+						<li><a href='#/profile/friends/{{profile.username}}'>Friends</a></li>
 						<li><a href='#'>Photos</a></li>
 					</ul>
 				</div>
@@ -77,6 +76,18 @@
 	<div class='container'>
 		<div class='row'>
 			<div class='col-md-3 wall_left_bar'>
+				<div class='wall_friends_list'>
+					<div class='row container wall_friends_list_header'>
+						<h5>Friends</h5> 
+						<p>({{profile.friend_list.length}})</p>
+					</div>
+					<div class='row wall_friends_content'>
+						<div class='col-md-3 wall_friends_photo' ng-repeat='friend in profile.friend_list'>
+							<a href='#/profile/{{friend.friend_username}}'><img src='/static/images/{{friend.friend_profile_pic}}'></a>
+						</div>
+					</div>
+
+				</div>
 			</div>
 			<div class='col-md-6 wall_posts'>
 				<div class='wall_message_box'>

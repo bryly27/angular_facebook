@@ -4,6 +4,9 @@ var facebook = angular.module('facebook', ['ngRoute', 'LocalStorageModule']);
 facebook.config(function($routeProvider){
 	$routeProvider
 		.when('/', {
+			templateUrl: 'partials/home.html',
+		})
+		.when('/main', {
 			templateUrl: 'partials/main.html',
 		})
 		.when('/home',{
@@ -21,6 +24,13 @@ facebook.config(function($routeProvider){
 		.when('/profile/about/:id',{
 			templateUrl: 'partials/about.html',
 		})
+		.when('/profile/friends/:id',{
+			templateUrl: 'partials/friends.html',
+		})
+
+
+
+
 		.when('/search',{
 			templateUrl: 'partials/find_friends.html',
 		})

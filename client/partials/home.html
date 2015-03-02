@@ -34,10 +34,7 @@
 	  			    <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
 	  			  </a>
 	  			  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-	  			    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
-	  			    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
-	  			    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
-	  			    <li role="presentation"><a role="menuitem" tabindex="-1" href="#/" ng-click='logoff()'>Log Off</a></li>
+	  			    <li role="presentation"><a role="menuitem" tabindex="-1" href="#/main" ng-click='logoff()'>Log Off ({{logged_user.first_name}} {{logged_user.last_name}})</a></li>
 	  			  </ul>
 	  			</div>
 	  		</li>
@@ -67,7 +64,7 @@
 				<div class='row margin_top_25 container'>
 					<h4>News Feed</h4>
 				</div>
-				<div ng-repeat='news_feed in news_feeds'>
+				<div ng-repeat="news_feed in news_feeds | orderBy:'created_at':true">
 					<div class='wall_messages margin_top_25'>
 						<div class='row'>
 							<div class='col-md-3 wall_message_profile_pic' ng-show='news_feed.created_by_profile_pic'>

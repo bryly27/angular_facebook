@@ -77,8 +77,15 @@ facebook.factory('users_factory', function($http) {
 	factory.edit_profile_username = function(info, callback){
 		$http.post('/users/edit_profile_username', info).success(function(data){
 			callback(data);
+		});
+	};
+
+	factory.add_friend = function(info, callback){
+		$http.post('/users/add_friend', info).success(function(data){
+			callback(data);
 		})
 	}
+
 
 	// factory.add_bucket = function(info, callback){
 	// 	$http.post('/users/add_bucket', info).success(function(){

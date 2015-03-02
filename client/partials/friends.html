@@ -46,12 +46,12 @@
 		<div class='row'>
 			<div class='col-md-10'>
 				<div class='wall_background_photo'>
-					<div class='profile_pic' ng-show='logged_user.profile_pic'>
-						<img src='/static/images/{{logged_user.profile_pic}}'>
+					<div class='profile_pic' ng-show='profile.profile_pic'>
+						<img src='/static/images/{{profile.profile_pic}}'>
 					</div>
-					<div class='wall_profile_photo' ng-show='!logged_user.profile_pic'>
+					<div class='wall_profile_photo' ng-show='!profile.profile_pic'>
 					</div>
-					<h3>{{logged_user.first_name}} {{logged_user.last_name}}</h3>
+					<h3>{{profile.first_name}} {{profile.last_name}} <a class='add_friend_button btn' href="" ng-click='add_friend(profile)'>Add Friend</a></h3>
 				</div>
 			</div>
 		</div>
@@ -59,38 +59,35 @@
 			<div class='container'>
 				<div class='col-md-3'>
 				</div>
-				<div class='margin_top_50 col-md-7'>
+				<div class='profile_menu_buttons col-md-7'>
+					<ul>
+						<li><a href='#'>Timeline</a></li>
+						<li><a href='#/profile/about/{{profile.username}}'>About</a></li>
+						<li><a href='#/profile/friends/{{profile.username}}'>Friends</a></li>
+						<li><a href='#'>Photos</a></li>
+					</ul>
 				</div>
 			</div>
 		</div>
 	</div>
 
 	<div class='container'>
-		<div class='col-md-10 edit_user'>
-			<div class='edit_user_header'>
-				<h3>Edit Profile</h3>
-			</div>
-		
-			<div class='col-md-3 edit_user_left_side_bar'>
-				<div class='row'>
-					<h4><a href='#/profile/edit'>About</a></h4>
+		<div class='row container'>
+			<div class='col-md-10 friends_list'>
+				<div class='friends_list_header container margin_top_10'>
+					<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+					<h3>Friends</h3>
+					<h5>All Friends</h5>
 				</div>
-				<div class='row'>
-					<h4><a href='#/profile/edit/photo'><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>Change Profile Picture</a></h4>
-				</div>
-			</div>
-			<div class='col-md-9 edit_user_content'>
-				<div class='row margin_top_25'>
-					<form name="app.forms.regForm" ng-submit="edit_profile_photo(profile)" class='container' enctype='multipart/form-data' novalidate>
-						<input type="file" file-model="profile.pic" ng-model="profile.pic" name="pic_path" id="inputFile" />
-						<br>
-						<input type="submit" value='Submit'>
-					</form>
+				<div class='row friends_list_content margin_top_10'>
+					<div class='friends col-md-5' ng-repeat='friend in profile.friend_list'>
+						<div class='row'>
+							<img src='/static/images/{{friend.friend_profile_pic}}'>
+							<h4><a href='#/profile/{{friend.friend_username}}'>{{friend.friend_fullname}}</a></h4>
+						</div>
+					</div>
 				</div>
 			</div>
-			
-			
-			<h4></h4>
 		</div>
 	</div>
 

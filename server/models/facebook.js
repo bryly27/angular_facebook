@@ -12,6 +12,7 @@ var UsersSchema = new mongoose.Schema({
 	birthday: Date,
 	gender: String,
 	username: String,
+	friend_list: Array, 
 	created_at: {type: Date, default: new Date},
 	updated_at: Date,
 	wall_messages: [{type: Schema.Types.ObjectId, ref: 'wall_message'}],

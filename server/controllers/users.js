@@ -145,20 +145,35 @@ module.exports = (function() {
 					}else{
 						console.log(results);
 						res.json(results);
-					}
-				})
-			})
+					};
+				});
+			});
 		},
 
-		// get_buckets: function(req, res){
-		// 	Bucket.find({created_by: req.params.id}, function(err, results){
-		// 		if(err){
-		// 			consol.log(err);
-		// 		}else{
-		// 			res.send(JSON.stringify(results));
-		// 		}
-		// 	})
-		// },
+		add_friend: function(req, res){
+			// console.log('req', req.body);
+			User.findOne({_id: req.body.my_id}, function(err, result){
+				var exists = true;
+
+				for(var i=0; i<result.friend_list.length; i++){
+					// console.log(result.friend_list[i].friend_username);
+					if(result.friend_list[i].friend_username === req.body.username){
+						// console.log(result.friend_list[i].username, 'and', req.body.username);
+						exists = false;
+					}
+				}
+				if(exists){
+					result.friend_list.push({friend_fullname: req.body.fullname, friend_profile_pic: req.body.profile_pic, friend_username: req.body.username});
+					result.save(function(err, results){
+						if(err){
+							console.log('err', err);
+						}else{
+							res.json(results);
+						}
+					})
+				}
+			});
+		},
 
 		// get_info: function(req, res){
 		// 	console.log(req.params.id);

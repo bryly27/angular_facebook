@@ -21,6 +21,10 @@ facebook.controller('users_controller', function($window, $route, $scope, $rootS
 		$scope.years.push(i);
 	};
 
+	if(!localStorageService.get('user')){
+		$location.path('/main');
+	}
+
 	$scope.add_user = function(data){
 		data.birthday = data.year+'/'+data.month+'/'+data.day;
 		console.log('controller password', data.password);
@@ -52,6 +56,7 @@ facebook.controller('users_controller', function($window, $route, $scope, $rootS
 	function get_profile(){
 		users_factory.get_profile($routeParams.id, function(data){
 			$scope.profile = data;
+			console.log(data);
 		});
 	};
 
@@ -113,7 +118,19 @@ facebook.controller('users_controller', function($window, $route, $scope, $rootS
 		})
 	}
 
+	$scope.add_friend = function(data){
+		data.fullname = data.first_name + ' ' + data.last_name;
+		data.my_id = localStorageService.get('user')._id;
+		users_factory.add_friend(data, function(data){
+			localStorageService.set('user', data);
+			$route.reload();
+		})
+	}
 
+	$scope.logoff = function(){
+		localStorageService.set('user') = null; 
+		$route.reload();
+	}
 
 })
 

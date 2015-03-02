@@ -274,6 +274,58 @@ body {
 .edit_user_content {
 	border-left: 1px solid silver;
 }
+.add_friend_button {
+	font-size: 12px;
+}
+.friends_list {
+	border: 1px solid silver;
+}
+.friends_list_header span {
+	font-size: 25px;
+	color: grey;
+	display: inline-block;
+}
+.friends_list_header h3 {
+	display: inline-block;
+}
+.friends_list_header {
+	border-bottom: 1px solid silver;
+	width: 100%;
+}
+.friends {
+	border: 1px solid silver;
+	margin-left: 25px;
+}
+.friends img {
+	width: 100px;
+	height: 100px;
+	display: inline-block;
+}
+.friends h4 {
+	display: inline-block;
+}
+.wall_friends_list {
+	border: 1px solid silver;
+	padding: 10px;
+	border-radius: 5px;
+	background-color: white;
+}
+.wall_friends_list h5 {
+	display: inline-block;
+}
+.wall_friends_list p {
+	display: inline-block;
+	font-size: 10px;
+}
+.wall_friends_photo {
+	margin: 3px;
+}
+.wall_friends_photo img {
+	width: 70px;
+	height: 70px;
+}
+
+
 
 
 
