@@ -4,7 +4,7 @@
 		<div class='col-md-1'>
 		</div>
 		<div class="col-lg-6 form-inline">
-			<a href='#/home'><img src='static/icons/facebook_logo.png'></a>
+			<a href='#/home'><img ng-src='static/icons/facebook_logo.png'></a>
 	    <div class="input-group">
 	    	<form>
 		      <input id='search' type="text" class="form-control" ng-model='filter_name' placeholder="Search for..." ng-click='search_friends()'>
@@ -15,7 +15,7 @@
 	    </div>
 
 	    <div class='search_filter container' ng-show='filter_name.length'>
-	    	<p ng-repeat='friend in search_friends | filter:filter_name' ><a href='#/profile/{{friend.username}}'><img src='/static/images/{{friend.profile_pic}}'> {{friend.first_name}} {{friend.last_name}}</a></p>
+	    	<p ng-repeat='friend in search_friends | filter:filter_name' ><a href='#/profile/{{friend.username}}'><img ng-src='/static/images/{{friend.profile_pic}}'> {{friend.first_name}} {{friend.last_name}}</a></p>
 	    </div>
 
 	  </div>
@@ -47,7 +47,9 @@
 			<div class='col-md-10'>
 				<div class='wall_background_photo'>
 					<div class='profile_pic' ng-show='logged_user.profile_pic'>
-						<img src='/static/images/{{logged_user.profile_pic}}'>
+						<a href='#/profile/{{logged_user.username}}'>
+							<img ng-src='/static/images/{{logged_user.profile_pic}}'>
+						</a>
 					</div>
 					<div class='wall_profile_photo' ng-show='!logged_user.profile_pic'>
 					</div>

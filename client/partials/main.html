@@ -1,18 +1,19 @@
 <div ng-controller='users_controller'>
-	<div class='row top_blue_bar'>
-		<div class='col-md-3 col-md-offset-1'>
+
+	<div class='top_blue_bar'>
+		<div class='main_top_logo'>
 			<h1>facebook</h1>
 		</div>
-		<form name='form'>
-			<div class='col-md-2 col-md-offset-2'>
-				<p>Email or Phone</p>
+		<form name='form' class='main_top_login'>
+			<div class='main_top_login_email'>
+				<p>Email</p>
 				<input type='text'  ng-minlength='2' ng-model='get_user.email' required>
 			</div>
-			<div class='col-md-2'>
+			<div class='main_top_password'>
 				<p>Password</p>
 				<input type='password' ng-minlength='2' ng-model='get_user.password' required>
 			</div>
-			<div class='col-md-1'>
+			<div>
 				<input class='top_blue_bar_submit' type='submit' ng-click='login_user(get_user)' value='Log In'>
 			</div>
 		</form>
@@ -32,6 +33,10 @@
 				<div ng-show='result.result'>
 					{{result.result}}
 				</div>
+				<div ng-show='result.result2'>
+					{{result.result2}}
+				</div>
+
 				<h1>Sign Up</h1>
 				<h4>It's free and always will be.</h4>
 				<form name='form'>
@@ -64,7 +69,7 @@
 					<div class='row'>
 						<div class='col-md-8'>
 							<div class='form-group'>
-								<input type="text" name="password" id="password" class="form-control input-sm" placeholder="New password" ng-model='new_user.password' ng-minlength='2' required>
+								<input type="password" name="password" id="password" class="form-control input-sm" placeholder="New password" ng-model='new_user.password' ng-minlength='2' required>
 							</div>
 						</div>
 					</div>

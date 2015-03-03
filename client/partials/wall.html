@@ -4,7 +4,7 @@
 		<div class='col-md-1'>
 		</div>
 		<div class="col-lg-6 form-inline">
-			<a href='#/home'><img src='static/icons/facebook_logo.png'></a>
+			<a href='#/home'><img ng-src='static/icons/facebook_logo.png'></a>
 	    <div class="input-group">
 	    	<form>
 		      <input id='search' type="text" class="form-control" ng-model='filter_name' placeholder="Search for..." ng-click='search_friends()'>
@@ -15,7 +15,7 @@
 	    </div>
 
 	    <div class='search_filter container' ng-show='filter_name.length'>
-	    	<p ng-repeat='friend in search_friends | filter:filter_name' ><a href='#/profile/{{friend.username}}'><img src='/static/images/{{friend.profile_pic}}'> {{friend.first_name}} {{friend.last_name}}</a></p>
+	    	<p ng-repeat='friend in search_friends | filter:filter_name' ><a href='#/profile/{{friend.username}}'><img ng-src='/static/images/{{friend.profile_pic}}'> {{friend.first_name}} {{friend.last_name}}</a></p>
 	    </div>
 
 	  </div>
@@ -47,12 +47,14 @@
 			<div class='col-md-10'>
 				<div class='wall_background_photo'>
 					<div class='profile_pic' ng-show='profile.profile_pic'>
-						<img src='/static/images/{{profile.profile_pic}}'>
+						<a href='#/profile/{{profile.username}}'>
+							<img ng-src='/static/images/{{profile.profile_pic}}'>
+						</a>
 					</div>
 					<div class='wall_profile_photo' ng-show='!profile.profile_pic'>
 					</div>
 					<h3>{{profile.first_name}} {{profile.last_name}} 
-						<a ng-if='profile.username !== logged_user.username' class='add_friend_button btn' href="" ng-click='add_friend(profile)'>Add Friend</a>
+						<a ng-if='profile.username !== logged_user.username' class='add_friend_button btn' href="" ng-click='add_friend(profile)'>Add Friend</a><label class='friend_added' ng-show='friend_added'>{{friend_added}}</label>
 					</h3>
 				</div>
 			</div>
@@ -63,10 +65,10 @@
 				</div>
 				<div class='profile_menu_buttons col-md-7'>
 					<ul>
-						<li><a href='#'>Timeline</a></li>
+						<li><a href='#/profile/{{profile.username}}'>Timeline</a></li>
 						<li><a href='#/profile/about/{{profile.username}}'>About</a></li>
 						<li><a href='#/profile/friends/{{profile.username}}'>Friends</a></li>
-						<li><a href='#'>Photos</a></li>
+						<li><a href='#/profile/photos/{{profile.username}}'>Photos</a></li>
 					</ul>
 				</div>
 			</div>
@@ -83,7 +85,7 @@
 					</div>
 					<div class='row wall_friends_content'>
 						<div class='col-md-3 wall_friends_photo' ng-repeat='friend in profile.friend_list'>
-							<a href='#/profile/{{friend.friend_username}}'><img src='/static/images/{{friend.friend_profile_pic}}'></a>
+							<a href='#/profile/{{friend.friend_username}}'><img ng-src='/static/images/{{friend.friend_profile_pic}}'></a>
 						</div>
 					</div>
 
@@ -92,7 +94,7 @@
 			<div class='col-md-6 wall_posts'>
 				<div class='wall_message_box'>
 					<form>
-						<textarea ng-model='new_message.message' placeholder="What's on your mind?"></textarea>
+						<textarea ng-model='new_message.message' placeholder="What's on your mind?" required></textarea>
 						<input type='submit' value='submit' class='pull-right' ng-click='new_wall_message(new_message, profile)'>
 					</form>
 				</div>
@@ -102,7 +104,7 @@
 					<div class='wall_messages margin_top_50'>
 						<div class='row'>
 							<div class='col-md-3 wall_message_profile_pic' ng-show='messages.created_by_profile_pic'>
-								<img src='/static/images/{{messages.created_by_profile_pic}}'>
+								<img ng-src='/static/images/{{messages.created_by_profile_pic}}'>
 							</div>
 							<div class='col-md-3 wall_message_photo' ng-show='!messages.created_by_profile_pic'>
 							</div>
@@ -123,7 +125,7 @@
 						<div class='container'>
 							<div class='row' ng-repeat='comment in messages.comments'>
 								<div class='col-md-2 user_comment_profile_pic' ng-show='comment.created_by_profile_pic'>
-									<img src='/static/images/{{comment.created_by_profile_pic}}'>
+									<img ng-src='/static/images/{{comment.created_by_profile_pic}}'>
 								</div>
 								<div class='col-md-2 user_comment_photo' ng-show='!comment.created_by_profile_pic'>
 								</div>
@@ -138,7 +140,7 @@
 							</div>
 							<div class='row margin_top_10'>
 								<div class='col-md-2 user_comment_profile_pic' ng-show='logged_user.profile_pic'>
-									<img src='/static/images/{{logged_user.profile_pic}}'>
+									<img ng-src='/static/images/{{logged_user.profile_pic}}'>
 								</div>
 								<div class='col-md-2 user_comment_photo' ng-show='!logged_user.profile_pic'>
 								</div>

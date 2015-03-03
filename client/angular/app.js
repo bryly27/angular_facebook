@@ -27,6 +27,9 @@ facebook.config(function($routeProvider){
 		.when('/profile/friends/:id',{
 			templateUrl: 'partials/friends.html',
 		})
+		.when('/profile/photos/:id',{
+			templateUrl: 'partials/photos.html',
+		})
 
 
 

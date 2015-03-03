@@ -3,7 +3,6 @@
 var mongoose = require('mongoose');
 var User = mongoose.model('user');
 var Wall_message = mongoose.model('wall_message');
-var Wall_comment = mongoose.model('wall_comment');
 var crypto = require('crypto');
 var path = require('path');
 // var Facebook = mongoose.model('facebook');
@@ -12,18 +11,36 @@ module.exports = (function() {
 	return {
 
 		add_user: function(req, res) {
-			console.log(req.body.password);
-			var password = crypto.createHmac('sha1', 'codingdojo').update(req.body.password).digest('hex');
-			req.body.password = password;
-		 	console.log(password);
-			var new_user = new User(req.body);
-			new_user.save(function(err) {
-				if(err) {
-					console.log("err");
-				} else {
-					res.json({result: "You are now registered! Log in!"});
-				};
-			});
+			User.findOne({email: req.body.email}, function(err, results){
+				if(results === 0){
+					User.findOne({username: req.body.username}, function(err, results){
+						if(results === 0){
+							if(req.body.email === req.body.confirm_email){
+								var password = crypto.createHmac('sha1', 'codingdojo').update(req.body.password).digest('hex');
+								req.body.password = password;
+								req.body.first_name = (req.body.first_name).charAt(0).toUpperCase() + (req.body.first_name).slice(1);
+								req.body.last_name = (req.body.last_name).charAt(0).toUpperCase() + (req.body.last_name).slice(1);
+								req.body.email = (req.body.email).toLowerCase();
+								var new_user = new User(req.body);
+								new_user.save(function(err) {
+									if(err) {
+										console.log("err");
+									} else {
+										res.json({result: "You are now registered! Log in!"});
+									};
+								});
+							}else{
+								res.json({result2: "Emails did not match"});
+							}
+						}else{
+							res.json({result2: "Email or Username has been taken"});
+						}
+					})
+				}else{
+					res.json({result2: "Email or Username has been taken"});
+				}
+			})
+			
 		},
 
 		login_user: function(req, res){
@@ -93,8 +110,6 @@ module.exports = (function() {
 		},
 
 		add_photo: function(req, res){
-			console.log('djkflsd', req.files);
-			console.log(req.files.pic.path);
 			User.findOne({_id: req.body.id}, function(err, result){
 				result.profile_pic = req.files.pic.name;
 				result.save(function(err, results){
@@ -165,11 +180,49 @@ module.exports = (function() {
 							console.log('err', err);
 						}else{
 							res.json(results);
+							User.findOne({_id: req.body._id}, function(err, result){
+								result.friend_list.push({friend_fullname: req.body.my_fullname, friend_profile_pic: req.body.my_profile_pic, friend_username: req.body.my_username});
+								result.save(function(err, results){
+									if(err){
+										console.log('err', err);
+									}else{
+										res.end();
+									}
+								})
+							})
 						}
 					})
 				}
 			});
 		},
+
+		add_new_photo: function(req, res){
+			User.findOne({_id: req.body.id}, function(err, result){
+				result.photos.push({photo:req.files.pic.name});
+				result.save(function(err, results){
+					if(err){
+						console.log('err', err);
+					}else{
+						res.json(results);
+					}
+				})
+			})
+		}
+
+
+		// add_photo: function(req, res){
+		// 	User.findOne({_id: req.body.id}, function(err, result){
+		// 		result.profile_pic = req.files.pic.name;
+		// 		result.save(function(err, results){
+		// 			if(err){
+		// 				console.log('error', err);
+		// 			}else{
+		// 				console.log('result', result);
+		// 				res.json(result);
+		// 			}
+		// 		})
+		// 	})
+		// },
 
 		// get_info: function(req, res){
 		// 	console.log(req.params.id);

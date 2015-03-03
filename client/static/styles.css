@@ -4,7 +4,7 @@ body {
 	margin: 0;
 }
 .top_blue_bar {
-	background-color: #3A5795;
+	background-color: #3A5795; 
 	width: 100%;
 	height: 80px;
 	margin: 0;
@@ -46,6 +46,23 @@ body {
 .home_page_register {
 	background-color: #649C50;
 }
+.main_top_logo {
+	margin-left: 100px;
+	display: inline-block;
+}
+.main_top_login {
+	display: inline-block;
+	vertical-align: top;
+	margin-left: 400px;
+}
+.main_top_login div {
+	display: inline-block;
+	position: static;
+}
+.main_top_login p {
+	margin: 0;
+}
+
 
 .top_bar {
 	width: 100%;
@@ -323,6 +340,35 @@ body {
 .wall_friends_photo img {
 	width: 70px;
 	height: 70px;
+}
+.friend_added {
+	font-size: 10px;
+	color: red;
+}
+.no_photo {
+	border: 1px solid silver;
+	background-color: white;
+	width: 100%;
+	margin-left: 2px;
+}
+.no_photo span {
+	font-size: 70px;
+	display: inline-block;
+}
+.no_photo p {
+	display: inline-block;
+}
+.profile_photos {
+	margin: 5px;
+	/*border: 1px solid silver;*/
+	height: 250px;
+}
+.profile_photos span {
+	font-size: 100px;
+	color: grey;
+}
+.profile_photos img {
+	width: 100%;
 }
 
 

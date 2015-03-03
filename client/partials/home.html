@@ -4,7 +4,7 @@
 		<div class='col-md-1'>
 		</div>
 		<div class="col-lg-6 form-inline">
-			<a href='#/home'><img src='static/icons/facebook_logo.png'></a>
+			<a href='#/home'><img ng-src='static/icons/facebook_logo.png'></a>
 	    <div class="input-group">
 	    	<form>
 		      <input id='search' type="text" class="form-control" ng-model='filter_name' placeholder="Search for..." ng-click='search_friends()'>
@@ -15,7 +15,7 @@
 	    </div>
 
 	    <div class='search_filter container' ng-show='filter_name.length'>
-	    	<p ng-repeat='friend in search_friends | filter:filter_name' ><a href='#/profile/{{friend.username}}'><img src='/static/images/{{friend.profile_pic}}'> {{friend.first_name}} {{friend.last_name}}</a></p>
+	    	<p ng-repeat='friend in search_friends | filter:filter_name' ><a href='#/profile/{{friend.username}}'><img ng-src='/static/images/{{friend.profile_pic}}'> {{friend.first_name}} {{friend.last_name}}</a></p>
 	    </div>
 
 	  </div>
@@ -48,19 +48,33 @@
 		<div class='row margin_top_50'>
 
 			<div class='col-md-3 profile_bar'>
-				<div class='col-md-3' ng-show='logged_user.profile_pic'>
-					<img class='home_profile_pic' src='/static/images/{{logged_user.profile_pic}}'>
+				<div class='row'>
+					<div class='col-md-3' ng-show='logged_user.profile_pic'>
+						<a href='#/profile/{{logged_user.username}}'><img class='home_profile_pic' ng-src='/static/images/{{logged_user.profile_pic}}'></a>
+					</div>
+					<div class='col-md-3' ng-show='!logged_user.profile_pic'>
+						<span class="glyphicon glyphicon-user user_glyph" aria-hidden="true"></span>
+					</div>
+					<div class='col-md-5 profile_bar_edit'>
+						<p><strong><a href='#/profile/{{logged_user.username}}'>{{logged_user.first_name}} {{logged_user.last_name}}</a></strong></p>
+						<p><a href='#/profile/edit'>Edit Profile</a></p>
+					</div>
 				</div>
-				<div class='col-md-3' ng-show='!logged_user.profile_pic'>
-					<span class="glyphicon glyphicon-user user_glyph" aria-hidden="true"></span>
-				</div>
-				<div class='col-md-5 profile_bar_edit'>
-					<p><strong><a href='#/profile/{{logged_user.username}}'>{{logged_user.first_name}} {{logged_user.last_name}}</a></strong></p>
-					<p><a href='#/profile/edit'>Edit Profile</a></p>
+				<div class='row'>
+					<div class='container margin_top_25'>
+						<a href='#/home'><p><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> News Feed</p></a>
+						<p><span class="glyphicon glyphicon-comment" aria-hidden="true"></span> Messages</p>
+					</div>
 				</div>
 			</div>
 
+
 			<div class='col-md-5'>
+				<div ng-show='!logged_user.profile_pic' class='row no_photo container' >
+					<span class="glyphicon glyphicon-user user_glyph" aria-hidden="true"></span> 
+					<p>You do not have a profile photo. Please click the link below to upload one.</p>
+					<a href="#/profile/edit/photo" class='btn'>Upload Photo Here</a>
+				</div>
 				<div class='row margin_top_25 container'>
 					<h4>News Feed</h4>
 				</div>
@@ -68,7 +82,7 @@
 					<div class='wall_messages margin_top_25'>
 						<div class='row'>
 							<div class='col-md-3 wall_message_profile_pic' ng-show='news_feed.created_by_profile_pic'>
-								<img src='/static/images/{{news_feed.created_by_profile_pic}}'>
+								<img ng-src='/static/images/{{news_feed.created_by_profile_pic}}'>
 							</div>
 							<div class='col-md-3 wall_message_photo' ng-show='!news_feed.created_by_profile_pic'>
 							</div>

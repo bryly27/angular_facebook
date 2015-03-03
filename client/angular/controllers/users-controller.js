@@ -2,6 +2,8 @@
 facebook.controller('users_controller', function($window, $route, $scope, $rootScope, $location, $routeParams, users_factory, localStorageService) {
 
 	$scope.logged_user = localStorageService.get('user');
+	console.log($scope.logged_user);
+	$scope.routeParams = $routeParams.id;
 	get_profile();
 	get_news_feed();
 
@@ -27,10 +29,19 @@ facebook.controller('users_controller', function($window, $route, $scope, $rootS
 
 	$scope.add_user = function(data){
 		data.birthday = data.year+'/'+data.month+'/'+data.day;
-		console.log('controller password', data.password);
 		users_factory.add_user(data, function(data){
-			$scope.new_user = null;
-			$scope.result = data;
+
+			if(data.result)
+			{
+				$scope.new_user = null;
+				$scope.result = data;
+			}else if(data.result2){
+				$scope.new_user.email = null;
+				$scope.new_user.confirm_email = null;
+				$scope.new_user.password = null;
+				$scope.result = data;
+			}
+			
 		});
 	};
 
@@ -48,7 +59,6 @@ facebook.controller('users_controller', function($window, $route, $scope, $rootS
 
 	$scope.search_friends = function(){
 		users_factory.search_friends(function(data){
-			console.log(data);
 			$scope.search_friends = data;
 		});
 	};
@@ -89,8 +99,8 @@ facebook.controller('users_controller', function($window, $route, $scope, $rootS
 
 	$scope.edit_profile_photo = function(data){
 		data.id = localStorageService.get('user')._id;
-		console.log(data);
 		users_factory.profile_pic(data, function(data){
+			console.log(data);
     	localStorageService.set('user', data);
     	$route.reload();
     });
@@ -119,16 +129,27 @@ facebook.controller('users_controller', function($window, $route, $scope, $rootS
 	}
 
 	$scope.add_friend = function(data){
+		$scope.friend_added = 'Friend Added';
 		data.fullname = data.first_name + ' ' + data.last_name;
 		data.my_id = localStorageService.get('user')._id;
+		data.my_fullname = localStorageService.get('user').first_name + ' ' + localStorageService.get('user').last_name;
+		data.my_username = localStorageService.get('user').username;
+		data.my_profile_pic = localStorageService.get('user').profile_pic;
 		users_factory.add_friend(data, function(data){
+			localStorageService.set('user', data);
+		})
+	}
+
+	$scope.add_new_photo = function(data){
+		data.id = localStorageService.get('user')._id;
+		users_factory.add_new_photo(data, function(data){
 			localStorageService.set('user', data);
 			$route.reload();
 		})
 	}
 
 	$scope.logoff = function(){
-		localStorageService.set('user') = null; 
+		localStorageService.set('user', null); 
 		$route.reload();
 	}
 

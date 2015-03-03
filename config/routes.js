@@ -52,6 +52,10 @@ module.exports = function(app) {
 		users.add_friend(req, res);
 	});
 
+	app.post('/users/add_new_photo', function(req, res){
+		users.add_new_photo(req, res);
+	});
+
 	// app.post('/pictures/create', function(req, res){ 
 	// 	users.create_picture(req, res); 
 	// });

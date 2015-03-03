@@ -4,7 +4,7 @@
 		<div class='col-md-1'>
 		</div>
 		<div class="col-lg-6 form-inline">
-			<img src='static/icons/facebook_logo.png'>
+			<a href='#/home'><img ng-src='static/icons/facebook_logo.png'></a>
 	    <div class="input-group">
 	    	<form>
 		      <input id='search' type="text" class="form-control" ng-model='filter_name' placeholder="Search for..." ng-click='search_friends()'>
@@ -15,7 +15,7 @@
 	    </div>
 
 	    <div class='search_filter container' ng-show='filter_name.length'>
-	    	<p ng-repeat='friend in search_friends | filter:filter_name' ><a href='#/profile/{{friend.username}}'><img src='/static/images/{{friend.profile_pic}}'> {{friend.first_name}} {{friend.last_name}}</a></p>
+	    	<p ng-repeat='friend in search_friends | filter:filter_name' ><a href='#/profile/{{friend.username}}'><img ng-src='/static/images/{{friend.profile_pic}}'> {{friend.first_name}} {{friend.last_name}}</a></p>
 	    </div>
 
 	  </div>
@@ -34,9 +34,6 @@
 	  			    <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
 	  			  </a>
 	  			  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-	  			    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
-	  			    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
-	  			    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
 	  			    <li role="presentation"><a role="menuitem" tabindex="-1" href="#/" ng-click='logoff()'>Log Off</a></li>
 	  			  </ul>
 	  			</div>
@@ -50,11 +47,15 @@
 			<div class='col-md-10'>
 				<div class='wall_background_photo'>
 					<div class='profile_pic' ng-show='logged_user.profile_pic'>
-						<img src='/static/images/{{profile.profile_pic}}'>
+						<a href='#/profile/{{profile.username}}'>
+							<img ng-src='/static/images/{{profile.profile_pic}}'>
+						</a>
 					</div>
 					<div class='wall_profile_photo' ng-show='!logged_user.profile_pic'>
 					</div>
-					<h3>{{profile.first_name}} {{profile.last_name}}</h3>
+					<h3>{{profile.first_name}} {{profile.last_name}} 
+						<a ng-if='profile.username !== logged_user.username' class='add_friend_button btn' href="" ng-click='add_friend(profile)'>Add Friend</a><label class='friend_added' ng-show='friend_added'>{{friend_added}}</label>
+					</h3>
 				</div>
 			</div>
 		</div>
@@ -64,10 +65,10 @@
 				</div>
 				<div class='profile_menu_buttons col-md-7'>
 					<ul>
-						<li><a href='#'>Timeline</a></li>
+						<li><a href='#/profile/{{profile.username}}'>Timeline</a></li>
 						<li><a href='#/profile/about/{{profile.username}}'>About</a></li>
-						<li><a href='#'>Friends</a></li>
-						<li><a href='#'>Photos</a></li>
+						<li><a href='#/profile/friends/{{profile.username}}'>Friends</a></li>
+						<li><a href='#/profile/photos/{{profile.username}}'>Photos</a></li>
 					</ul>
 				</div>
 			</div>

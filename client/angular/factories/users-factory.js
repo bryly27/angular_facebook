@@ -5,7 +5,6 @@ facebook.factory('users_factory', function($http) {
 	// var topics = [];
 
 	factory.add_user = function(info, callback) {
-		console.log('factory password', info.password)
 		$http.post('/users/add_user', info).success(function(data) {
 			callback(data);
 		});
@@ -48,7 +47,6 @@ facebook.factory('users_factory', function($http) {
 	};
 
 	factory.profile_pic = function(form, callback){
-		console.log(form);
 		fd = new FormData();
 		_.each(form, function(value, key, form){
 			fd.append(key, value);
@@ -83,8 +81,23 @@ facebook.factory('users_factory', function($http) {
 	factory.add_friend = function(info, callback){
 		$http.post('/users/add_friend', info).success(function(data){
 			callback(data);
+		});
+	};
+
+	factory.add_new_photo = function(form, callback){
+		console.log(form);
+		fd = new FormData();
+		_.each(form, function(value, key, form){
+			fd.append(key, value);
 		})
-	}
+
+		$http.post('/users/add_new_photo', fd,{
+			transformRequest: angular.identity,
+			headers:{'Content-Type': undefined}
+			}).success(function(data){
+				callback(data);
+		});
+	};
 
 
 	// factory.add_bucket = function(info, callback){

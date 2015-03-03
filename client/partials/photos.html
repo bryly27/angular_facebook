@@ -46,14 +46,16 @@
 		<div class='row'>
 			<div class='col-md-10'>
 				<div class='wall_background_photo'>
-					<div class='profile_pic' ng-show='logged_user.profile_pic'>
+					<div class='profile_pic' ng-show='profile.profile_pic'>
 						<a href='#/profile/{{profile.username}}'>
-							<img ng-src='/static/images/{{logged_user.profile_pic}}'>
+							<img ng-src='/static/images/{{profile.profile_pic}}'>
 						</a>
 					</div>
-					<div class='wall_profile_photo' ng-show='!logged_user.profile_pic'>
+					<div class='wall_profile_photo' ng-show='!profile.profile_pic'>
 					</div>
-					<h3>{{logged_user.first_name}} {{logged_user.last_name}}</h3>
+					<h3>{{profile.first_name}} {{profile.last_name}} 
+						<a ng-if='profile.username !== logged_user.username' class='add_friend_button btn' href="" ng-click='add_friend(profile)'>Add Friend</a><label class='friend_added' ng-show='friend_added'>{{friend_added}}</label>
+					</h3>
 				</div>
 			</div>
 		</div>
@@ -61,45 +63,43 @@
 			<div class='container'>
 				<div class='col-md-3'>
 				</div>
-				<div class='col-md-7 margin_top_50'>
+				<div class='profile_menu_buttons col-md-7'>
+					<ul>
+						<li><a href='#/profile/{{profile.username}}'>Timeline</a></li>
+						<li><a href='#/profile/about/{{profile.username}}'>About</a></li>
+						<li><a href='#/profile/friends/{{profile.username}}'>Friends</a></li>
+						<li><a href='#/profile/photos/{{profile.username}}'>Photos</a></li>
+					</ul>
 				</div>
 			</div>
 		</div>
 	</div>
 
 	<div class='container'>
-		<div class='col-md-10 edit_user'>
-			<div class='edit_user_header'>
-				<h3>Edit Profile</h3>
-			</div>
-		
-			<div class='col-md-3 edit_user_left_side_bar'>
-				<div class='row'>
-					<h4><a href='#/profile/edit'><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>About</a></h4>
+		<div class='row container'>
+			<div class='col-md-10 friends_list'>
+				<div class='friends_list_header container margin_top_10'>
+					<span class="glyphicon glyphicon-picture" aria-hidden="true"></span>
+					<h3>Photos</h3>
+					<h5>Your photos</h5>
 				</div>
-				<div class='row'>
-					<h4><a href='#/profile/edit/photo'>Change Profile Picture</a></h4>
-				</div>
-			</div>
-			<div class='col-md-9 edit_user_content'>
 				<div class='row margin_top_25 container'>
-					<h4>Name: {{logged_user.first_name}} {{logged_user.last_name}}</h4>
-					<h4 ng-show='!edit_email'>Email: {{logged_user.email}} <a href='#/profile/edit' ng-click='edit_email = !edit_email'>edit</a></h4>
-					<h4 ng-show='edit_email'>Email: 
-						<input type='text' ng-init="edit.email=logged_user.email" ng-model='edit.email'>
-						<input type='submit' value='Submit' ng-click='edit_profile_email(edit); edit_email = !edit_email '>
-						<a href="" ng-click='edit_email = !edit_email'>Cancel</a>
-					</h4>
-					<h4>Birthday: {{logged_user.birthday | date: longdate}}</h4>
-					<h4 ng-show='!edit_username'>Username: {{logged_user.username}} <a href='#/profile/edit' ng-click='edit_username = !edit_username'>edit</a></h4>
-					<h4 ng-show='edit_username'>Email: 
-						<input type='text' ng-init="edit.username=logged_user.username" ng-model='edit.username'>
-						<input type='submit' value='Submit' ng-click='edit_profile_username(edit); edit_username = !edit_username '>
-						<a href="" ng-click='edit_username = !edit_username'>Cancel</a>
-					</h4>
+					<div class='col-md-3 profile_photos' ng-if='logged_user.username === routeParams'>
+						<center>
+							<span class="glyphicon glyphicon-plus margin_top_25" aria-hidden="true"></span>
+							<h4>Add a Photo</h4>
+						</center>
+						<form name="app.forms.regForm" ng-submit="add_new_photo(new_photo)" class='container' enctype='multipart/form-data' novalidate>
+								<input type="file" file-model="new_photo.pic" ng-model="new_photo.pic" name="pic_path" id="inputFile" />
+								<input type="submit" value='Submit'>
+							</form>
+					</div>
+					<div class='col-md-3 profile_photos' ng-repeat='photo in profile.photos'>
+						<img ng-src='/static/images/{{photo.photo}}'>
+					</div>
+					
 				</div>
 			</div>
-
 		</div>
 	</div>
 
