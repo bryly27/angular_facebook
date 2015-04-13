@@ -39,7 +39,7 @@ var mongoose = require('./config/mongoose.js');
 var routes = require('./config/routes.js')(app);
 
 // sets the port
-app.set('port', 3000);
+app.set('port', 8888);
 
 // starts listening
 app.listen(app.get('port'), function() {
