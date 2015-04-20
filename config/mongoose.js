@@ -7,6 +7,8 @@ var connect = function() {
 	// specify options for when mongoose connects to mongodb
 	var options = { server: { socketOptions: { keepAlive: 1}}}
 	// connect to our mongodb database server with options specified above
+	
+	//mongoose.connect('mongodb://localhost/facebook', options)
 	mongoose.connect('mongodb://localhost/facebook')
 }
 // actually connect to the database!
@@ -16,6 +18,11 @@ connect();
 mongoose.connection.on('error', function(err) {
 	console.log(err)
 })
+
+//testing connectivity
+mongoose.connection.once('connected', function() {
+	console.log("Database connected successfully")
+});
 
 // if we get disconnected from mongoose try to connect again
 mongoose.connection.on('disconnected', function() {
