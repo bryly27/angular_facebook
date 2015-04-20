@@ -12,9 +12,9 @@ module.exports = (function() {
 
 		add_user: function(req, res) {
 			User.findOne({email: req.body.email}, function(err, results){
-				if(results === 0){
+				if(results === null){
 					User.findOne({username: req.body.username}, function(err, results){
-						if(results === 0){
+						if(results === null){
 							if(req.body.email === req.body.confirm_email){
 								var password = crypto.createHmac('sha1', 'codingdojo').update(req.body.password).digest('hex');
 								req.body.password = password;

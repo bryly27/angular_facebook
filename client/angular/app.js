@@ -44,7 +44,7 @@ facebook.config(function($routeProvider){
 		// .when('/user/:id',{
 		// 	templateUrl: 'partials/user.html',
 		// })
-		// .otherwise({
-		// 	redirectTo: '/'
-		// })
+		.otherwise({
+			redirectTo: '/main'
+		})
 })
