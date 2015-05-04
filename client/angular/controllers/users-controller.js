@@ -2,7 +2,6 @@
 facebook.controller('users_controller', function($window, $route, $scope, $rootScope, $location, $routeParams, users_factory, localStorageService) {
 
 	$scope.logged_user = localStorageService.get('user');
-	console.log($scope.logged_user);
 	$scope.routeParams = $routeParams.id;
 	get_profile();
 	get_news_feed();
@@ -66,7 +65,6 @@ facebook.controller('users_controller', function($window, $route, $scope, $rootS
 	function get_profile(){
 		users_factory.get_profile($routeParams.id, function(data){
 			$scope.profile = data;
-			console.log(data);
 		});
 	};
 
@@ -91,7 +89,6 @@ facebook.controller('users_controller', function($window, $route, $scope, $rootS
 		data.created_by_profile_pic = localStorageService.get('user').profile_pic;
 		data.comment_for = data2;
 		users_factory.new_wall_comment(data, function(data){
-			console.log('made it back');
 			$scope.new_comment = null;
 			get_profile();
 		});
@@ -100,7 +97,6 @@ facebook.controller('users_controller', function($window, $route, $scope, $rootS
 	$scope.edit_profile_photo = function(data){
 		data.id = localStorageService.get('user')._id;
 		users_factory.profile_pic(data, function(data){
-			console.log(data);
     	localStorageService.set('user', data);
     	$route.reload();
     });
